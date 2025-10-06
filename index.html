@@ -574,7 +574,8 @@ Anna Krystalli <a href="https://orcid.org/0000-0002-2378-4915" class="quarto-tit
 <h2>🌐 Enter the <strong>hubverse</strong></h2>
 <p>An open-source <strong>software ecosystem</strong> to power modeling hubs:</p>
 <ul>
-<li><strong>Data standards</strong> for infectious disease forecasting data</li>
+<li>GitHub repositories for <strong>centralising hub activity</strong></li>
+<li><strong>Data standards</strong> for infectious disease modeling data</li>
 <li><strong>Schema-driven configuratio</strong>n for modeling tasks + hub setup</li>
 <li>Modular tools for validation, access, evaluation, ensembling, communication and hub administration</li>
 <li><strong>Supports full lifecycle:</strong> from hub set up, data submission to decision-making</li>
@@ -583,6 +584,9 @@ Anna Krystalli <a href="https://orcid.org/0000-0002-2378-4915" class="quarto-tit
 <p>… an <strong>what lead to the creation of the hubverse</strong></p>
 <p>&gt; which is an <strong>open-source software ecosystem</strong> designed <strong>to support the full lifecycle of infectious disease modeling hubs</strong>.</p>
 <p>It brings together:</p>
+<ul>
+<li>Centralised version controlled location for hub activities through GitHub repositories</li>
+</ul>
 <p>• <strong>Standardised data formats</strong> for infectious disease modeling.</p>
 <p>• <strong>Schema-driven configuration</strong>, for defining a hub’s modeling tasks, submission schedule, and other expectations.</p>
 <p>• A <strong>suite of tools</strong> for hub <strong>administration</strong>, <strong>data validation</strong>, <strong>access</strong>, <strong>evaluation</strong>, <strong>ensembling, visualisation</strong> and <strong>communication</strong>.</p>
@@ -613,7 +617,7 @@ Anna Krystalli <a href="https://orcid.org/0000-0002-2378-4915" class="quarto-tit
 </ul>
 <p>✅ Enables comparability, validation, and streamlined data access</p>
 <aside class="notes">
-<p><strong>At its core</strong>, the hubverse represents a <strong>shared data standard</strong> for modeling hubs.<br>
+<p><strong>At its core</strong>, the hubverse represents a <strong>shared data standard</strong>.<br>
 Everything else <strong>builds on that foundation.</strong></p>
 <p>This covers how modeling task are defined:</p>
 <ul>
@@ -621,9 +625,8 @@ Everything else <strong>builds on that foundation.</strong></p>
 <li><p>which predictors are to be used,</p></li>
 <li><p>and what output types are accepted.</p></li>
 </ul>
-<p>Defining these up front in a standardised way <strong>removes ambiguity</strong> and <strong>ensures every team is working to the same specification.</strong></p>
 <p>Model outputs are submitted within a <strong>structured hub layout</strong>, so <strong>files</strong> are always stored in <strong>predictable</strong> <strong>standard locations.</strong></p>
-<p>Finally, the <strong>model output files themselves</strong> follow a consistent format and naming convention.</p>
+<p>Finally, the <strong>model output files themselves</strong> follow a <strong>consistent format</strong> and <strong>naming</strong> convention.</p>
 <p>Together, <strong>these standards</strong> make <strong>model outputs directly comparable</strong> and <strong>easy to combine in downstream analysis</strong>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -650,7 +653,7 @@ Everything else <strong>builds on that foundation.</strong></p>
 <li>Configs are validated against a shared JSON <a href="https://github.com/hubverse-org/schemas"><strong>schema</strong></a></li>
 </ul>
 <aside class="notes">
-<p>A key feature of the hubverse is that <strong>hub setup is configuration-based</strong>.</p>
+<p>Another key feature of the hubverse is that <strong>hub setup is configuration-based</strong>.</p>
 <p>Administrators define the <strong>hub’s goals</strong> and <strong>expectations</strong> through <strong>structured JSON config files</strong>:</p>
 <ul>
 <li><strong><code>admin.json</code></strong> describes <strong>hub-level</strong> properties like hub name, maintainers, timezone, allowed data formats etc.<br>
@@ -781,12 +784,12 @@ JSON data are generated from hub data by <strong>GitHub workflows</strong>, and 
 <section id="cloud-hub-storage-and-access" class="slide level2">
 <h2>☁️ Cloud hub storage and access</h2>
 <ul>
-<li>Hubs mirrored to public AWS S3 buckets</li>
-<li>Data can be opened as Arrow datasets</li>
-<li>Enables queryable data access via R 📦 <code>hubData</code> and Python 📦 <code>hubdata</code>.</li>
+<li>Hubs <strong>mirrored to public AWS S3 buckets</strong></li>
+<li>Multi-file data can be <strong>opened as Arrow datasets</strong></li>
+<li>Enables <strong>query-able data access</strong> via R 📦 <code>hubData</code> and Python 📦 <code>hubdata</code>.</li>
 </ul>
 <aside class="notes">
-<p>As a bonus, we’ve developed infrastructure to mirror validated hub data to <strong>AWS S3 buckets</strong>, making it publicly accessible as an <strong>Arrow dataset</strong>.</p>
+<p>As a bonus, we’ve developed infrastructure to mirror validated hub data to <strong>AWS S3 buckets</strong>, making it publicly accessible as <strong>Arrow datasets</strong>.</p>
 <p>This <strong>enables downstream users</strong>, especially <strong>analysts</strong>, to <strong>query the data</strong> without needing to clone the full repository.</p>
 <p><br>
 They can <strong>access</strong> it via the <strong>R</strong> or <strong>python equivalent package</strong> <code>hubdata</code>.</p>
@@ -1100,21 +1103,25 @@ model_id: string</code></pre>
 <span id="cb5-11"><a href=""></a>  <span class="fu">collect_hub</span>()</span>
 <span id="cb5-12"><a href=""></a></span>
 <span id="cb5-13"><a href=""></a></span>
-<span id="cb5-14"><a href=""></a>hubEnsembles<span class="sc">::</span><span class="fu">simple_ensemble</span>(forecast_df, <span class="at">model_id =</span> <span class="st">"linear-pool-normal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-14"><a href=""></a>hubEnsembles<span class="sc">::</span><span class="fu">simple_ensemble</span>(</span>
+<span id="cb5-15"><a href=""></a>  forecast_df, </span>
+<span id="cb5-16"><a href=""></a>  <span class="at">agg_fun =</span> median,</span>
+<span id="cb5-17"><a href=""></a>  <span class="at">model_id =</span> <span class="st">"simple-ensemble-median"</span></span>
+<span id="cb5-18"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 282,716 × 9
    model_id   reference_date target horizon target_end_date location output_type
  * &lt;chr&gt;      &lt;date&gt;         &lt;chr&gt;    &lt;int&gt; &lt;date&gt;          &lt;chr&gt;    &lt;chr&gt;      
- 1 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 2 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 3 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 4 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 5 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 6 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 7 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 8 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
- 9 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
-10 linear-po… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 1 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 2 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 3 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 4 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 5 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 6 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 7 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 8 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+ 9 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
+10 simple-en… 2023-10-14     wk in…      -1 2023-10-07      01       quantile   
 # ℹ 282,706 more rows
 # ℹ 2 more variables: output_type_id &lt;chr&gt;, value &lt;dbl&gt;</code></pre>
 </div>
@@ -1205,9 +1212,9 @@ model_id: string</code></pre>
 <aside class="notes">
 <p>To wrap up:</p>
 <ul>
-<li><strong>Standards and automation reduce friction</strong> at every level -<strong>submitting</strong>, <strong>validating</strong>, and <strong>accessing</strong> model outputs becomes much easier and more reliable.</li>
+<li><strong>Standards and automation reduce friction</strong> at every level -<strong>submitting</strong>, <strong>validating</strong>, <strong>accessing</strong> and <strong>comparing</strong> model outputs becomes much easier and more reliable.</li>
 <li><strong>Open-source tooling</strong> makes all this infrastructure freely accessible, which is <strong>especially valuable</strong> in <strong>fast-moving</strong> or <strong>resource-constrained</strong> public health contexts.</li>
-<li><strong>Collaborative infrastructure</strong> like this fosters <strong>shared understanding</strong> and <strong>accountability</strong>.</li>
+<li><strong>Collaborative infrastructure</strong> like this fosters <strong>shared understanding</strong> and <strong>coordinated and efficient efforts</strong>.</li>
 <li>But beyond that, <strong>making the data</strong> openly available in a <strong>standardised format</strong> opens <strong>doors to wider impact</strong>. For example, hubverse data are already being <strong>used in teaching</strong>, like this SISMID course on <strong>real-world outbreak forecast evaluation</strong>, which builds directly on hubverse data and tools.</li>
 </ul>
 <p>We hope this inspires other communities to adopt or adapt similar workflows.</p>
@@ -1700,7 +1707,7 @@ model_id: string</code></pre>
       }
     });
     </script>
-    <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false,"openEffect":"zoom"});
+    <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom"});
     (function() {
       let previousOnload = window.onload;
       window.onload = () => {

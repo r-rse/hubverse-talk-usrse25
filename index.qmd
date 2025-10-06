@@ -12,6 +12,7 @@ author:
     url: hubverse.io
 date: "2025-10-07"
 hex: logo.png
+slide_url: https://r-rse.github.io/hubverse-talk-usrse25
 date-format: "D MMMM YYYY"
 favicon: favicon.ico
 format:
@@ -75,7 +76,7 @@ However, it has also come with growing pains.
 
 -   **Modelers and decision-makers don’t always communicate clearly**. model outputs **may not match what public health needs**.
 
-    This results in **significant fragmentation** which **limits the collective utility of modeling efforts.** So the challenge **isn’t just about developing effective models**, but also about making about them **usable**, **comparable**, and **coordinated**.
+    This results in **significant fragmentation** which **limits the collective utility of modeling efforts.** 
 :::
 
 ------------------------------------------------------------------------
@@ -99,9 +100,9 @@ However, it has also come with growing pains.
 > [***“Collaborative Hubs: Making the Most of Predictive Epidemic Modeling”***](https://ajph.aphapublications.org/doi/full/10.2105/AJPH.2022.306831)***,** American Journal of Public Health Reich, et al. 2022*
 
 ::: notes
-**Modeling hubs** as **centralized infrastructure** for **coordinating the modeling efforts** of multiple groups have been proposed as a solution:
+**Modeling hubs** which provide **centralized infrastructure** for **coordinating the modeling efforts** of multiple groups have been proposed as a solution:
 
--   Firstly Hubs **bring structure** and a standardised central location for repositing model outputs.
+-   Firstly Hubs **bring structure** and a standardised central location for collecting model outputs.
 
 -   They **establish a shared modeling protocol**: what outcomes to forecast, for which locations and time horizons, in what format.
 
@@ -111,7 +112,7 @@ However, it has also come with growing pains.
 
 -   Hubs make it easier for stakeholders, from **local agencies** to **national institutions**, to **access timely, interpretable forecasts**.
 
-Modeling hubs **transform isolated efforts** into **coordinated forecasting ecosystems**, laying the **groundwork** for **both scientific insight** and **real-world action**.
+Modeling hubs **transform isolated efforts** into **coordinated forecasting ecosystems**.
 
 They aren’t just **data repositories**, they’re **collaborative infrastructures**.
 :::
@@ -135,11 +136,11 @@ This resulted in an **initial working codebase to support such efforts**.
 
 During the pandemic, **interest in modeling hubs exploded** and this infrastructure was called on for repurposing:
 
-• First by the **US COVID-19 Forecast Hub**
+• First by the **US CDC COVID-19 Forecast Hub**
 
-• Then interest grew to **scenario modeling hubs**, and **internationally**.
+• Then interest grew to **scenario modeling hubs**, as well as **internationally**.
 
-**‼ BUT** to set up each of new hub, **manual changes to the source code was required**, obviously not ideal.
+**‼ BUT** to set up each new hub, **manual changes to the source code was required**, obviously not ideal.
 
 This is what **motivated the development** of a more **configurable**, more **generalized** and more **modular** system to support **new infectious disease modeling hubs.**
 :::
@@ -158,11 +159,11 @@ An open-source **software ecosystem** to power modeling hubs:
 ::: notes
 ... an **what lead to the creation of the hubverse**
 
-\> which is an **open-source software ecosystem** designed **specifically to support the full lifecycle of infectious disease modeling hubs**.
+\> which is an **open-source software ecosystem** designed **to support the full lifecycle of infectious disease modeling hubs**.
 
 It brings together:
 
-• **Standardised formats** for infectious disease modeling data.
+• **Standardised data formats** for infectious disease modeling.
 
 • **Schema-driven configuration**, for defining a hub's modeling tasks, submission schedule, and other expectations.
 
@@ -184,10 +185,10 @@ Modeling hubs are **built around a shared data standard:**
 ✅ Enables comparability, validation, and streamlined data access
 
 ::: notes
-**At its core**, the hubverse represents an **expected data standard** for modeling hubs.\
+**At its core**, the hubverse represents a **shared data standard** for modeling hubs.\
 Everything else **builds on that foundation.**
 
-Each modeling task is defined up front,
+This covers how modeling task are defined:
 
 -   what’s being predicted,
 
@@ -195,14 +196,13 @@ Each modeling task is defined up front,
 
 -   and what output types are accepted.
 
-This **removes ambiguity** and **ensures every team is working to the same specification.**
+Defining these up front in a standardised way **removes ambiguity** and **ensures every team is working to the same specification.**
 
 Model outputs are submitted within a **structured hub layout**, so **files** are always stored in **predictable** **standard locations.**
 
 Finally, the **model output files themselves** follow a consistent format and naming convention.
 
-\
-Together, **these standards** make **model outputs directly comparable** and **`easy to combine in downstream analysis`**.
+Together, **these standards** make **model outputs directly comparable** and **easy to combine in downstream analysis**.
 :::
 
 ------------------------------------------------------------------------
@@ -218,19 +218,19 @@ Together, **these standards** make **model outputs directly comparable** and **`
 -   Configs are validated against a shared JSON [**schema**](https://github.com/hubverse-org/schemas)
 
 ::: notes
-A key feature in the hubverse is that **hub setup is now configuration-based**.
+A key feature of the hubverse is that **hub setup is configuration-based**.
 
 Administrators define the **hub's goals** and **expectations** through **structured JSON config files**:
 
--   **`admin.json`** describes **hub-level** properties like name, maintainers, timezone, and allowed data formats.\
+-   **`admin.json`** describes **hub-level** properties like hub name, maintainers, timezone, allowed data formats etc.\
 -   **`task.json`** defines the **modeling tasks**:
     -   what targets (response variable),
     -   what predictor variables (other task IDs),
     -    and which output types are accepted for a given modeling task.
 
-Config files are standardised and **validated** against a **JSON schema** and are for **validating submissions**.
+Config files are **validated** against a **JSON schema** and are used for **validating submissions**.
 
-The result is that **new hubs can be spun up quickly,** and **modeling tasks are clearly and unambiguously defined** from the start.
+The result is that **new hubs can be spun up quickly** and **modeling tasks are clearly and unambiguously defined** from the start.
 
 This enables **clear communication of tasks by administrators** **ensuring modeling efforts are policy relevant.**
 :::
@@ -268,25 +268,23 @@ The hubverse package ecosystem is organized by **role**. Each tool is designed t
 :::
 :::::
 
-All built for modularity, extensibility, and CI integration
-
 :::: notes
 ::: notes
-Let me now **introduce the core hubverse packages** that support our **end-to-end modeling hub workflow.**
+Let me now **introduce the core hubverse packages** that support our **modeling hub infrastructure.**
 
-We’ve intentionally organized the ecosystem by **user role**. That’s because a **modeling hub isn’t just a single-user platform**, it involves **multiple roles**, each with distinct **responsibilities**, **technical skills**, and **needs**.
+We’ve intentionally organized the ecosystem by **user role**. That’s because a **modeling hub isn’t a single-user platform**, it involves **multiple roles**, each with distinct **responsibilities**, **technical skills**, and **needs**.
 
 On the **left**, we show the primary roles:
 
 -   **Hub administrators** are responsible for setting up and maintaining the hub’s infrastructure and configuration.
--   **Modelers** focus on submitting forecasts in the correct format, usually via pull requests.
+-   **Modelers** focus on submitting model outputs via pull requests.
 -   **Analysts** need to **explore**, **combine**, and **evaluate** forecast data, often across many models and time points.
 -   **Policy makers** or Public health officials typically need **high-level summaries**, **dashboards**, and **access to curated insights**, not raw files.
 
 On the **right**, we map each of these user groups to the packages that support their work:
 
 -   `hubAdmin` helps **administrators** create and validate the structure of their configuration files.
--   `hubValidations` is the gatekeeper, enforcing the standards set by the admins by validating every PR, ensuring files are named, structured, and formatted correctly.
+-   `hubValidations` is the gatekeeper, enforcing the standards set by the admins by validating every PR, ensuring files are named, structured, and formatted correctly. Can also be used by modelers prior to submitting.
 -   `hubData` (available in both R and Python) gives **analysts** and **modelers** an easy way to **directly access multi-file** model outputs directly as Arrow datasets.
 -   `hubEvals` **supports** model evaluation.
 -   `hubEnsembles` provides **functions for combining** model outputs into ensembles.
@@ -305,16 +303,16 @@ On the **right**, we map each of these user groups to the packages that support 
 -   New instances can be set up by copying/configuring the [`hub-dashboard-template`](https://github.com/hubverse-org/hub-dashboard-template)
 
 ::: notes
-**Dashboards are crucial for communicating** model outputs to a broader audience , including **policy makers, public health officials, and even the general public** so we put effort into developing a plug and play dashboard template.
+**Dashboards are crucial for communicating** model outputs to a broader audience, including **policy makers, public health officials, and even the general public** so we put effort into developing a plug and play dashboard template.
 
 -   Our template is built in **Quarto**, so it’s easy to customise and extend.
 
 -   What makes it powerful is that it's **fully static**, no backend needed.\
-    JSON data are generated by **GitHub workflows**, and the JavaScript frontend fetches this data to create a dynamic, interactive experience for the user.
+    JSON data are generated from hub data by **GitHub workflows**, and the JavaScript frontend fetches this data to create a dynamic, interactive experience for the user.
 
 This design makes it **fast**, **easy to host** (e.g. on GitHub Pages), and **simple to replicate**.
 
-You can **launch new dashboards quickly** by **copying** and **configuring** the [`hub-dashboard-template`](https://github.com/hubverse-org/hub-dashboard-template).
+Hub admins can **launch new dashboards quickly** by **copying** and **configuring** the [`hub-dashboard-template`](https://github.com/hubverse-org/hub-dashboard-template).
 :::
 
 ## ☁️ Cloud hub storage and access
@@ -324,17 +322,17 @@ You can **launch new dashboards quickly** by **copying** and **configuring** the
 -   Enables queryable data access via R 📦 `hubData` and Python 📦 `hubdata`.
 
 ::: notes
-As a bonus, we can mirror validated hub data to **AWS S3 buckets**, making it publicly accessible as an **Arrow dataset**.
+As a bonus, we've developed infrastructure to mirror validated hub data to **AWS S3 buckets**, making it publicly accessible as an **Arrow dataset**.
 
 This **enables downstream users**, especially **analysts**, to **query the data** without needing to clone the full repository.
 
 \
-They can **access** it via the **R** or the P**ython equivalent package** `hubdata`.
+They can **access** it via the **R** or **python equivalent package** `hubdata`.
 
 This **cloud mirroring** service is something the **hubverse currently provides**.\
 To enable it for a new hub:
 
--   The hub administration needs to **contact us** to provision a bucket (we use **Pulumi** for infrastructure-as-code).
+-   The hub administration needs to **contact us** so we can provision a bucket.
 
 -   They need to add a bit of **lightweight configuration** to their `admin.json` file to activate it and install the relevant action workflow.
 :::
@@ -356,11 +354,11 @@ All hubverse actions stored in the [**`hubverse-actions`**](https://github.com/h
 
 ::: notes
 **Automation is a cornerstone of the hubverse.**\
-We use **GitHub Actions** to handle the **full operational lifecycle of a hub**.
+We use **GitHub Actions** to handle **hub operations**.
 
 This includes:
 
--   Validating all model output submissions at the **pull request** level,
+-   Validating model output submissions and target data at the **pull request** level,
 
 -   Validating **hub configuration files**,
 
@@ -369,7 +367,7 @@ This includes:
 -   Generating dashboard data + computing model evaluation metrics.
 
 All our workflows are stored in the [`hubverse-actions`](https://github.com/hubverse-org/hubverse-actions) repo.\
-They're easy to adopt , hub administrators can install them using the `hubCI::use_hub_github_action()` helper.
+They're easy to adopt, hub administrators can install them using the `hubCI::use_hub_github_action()` helper.
 
 This approach ensures **consistency**, and relatively **low overhead** for administrators.
 :::
@@ -388,7 +386,7 @@ knitr::include_url("https://hubverse.io/community/hubs.html", height = "500px")
 ::: notes
 Now that we've **seen the infrastructure**, let’s **look at adoption**.
 
-**This page** on our site **showcases** **hubs using the hubverse stack** , from long-standing hubs like the **Flusight Forecast Hub** and the **European Scenario Hub**, to newer efforts like the COVID-19 Variant Nowcast or West Nile Virus hubs.
+**This page** on our site **showcases** **hubs using the hubverse stack**, from long-standing hubs like the **Flusight Forecast Hub** to newer efforts like the COVID-19 Variant Nowcast or West Nile Virus hubs.
 
 Each hub entry includes **structured metadata**: like a hub description, whether data are publicly available, and links to the relevant GitHub repos, dashboards and cloud storage.
 
@@ -398,6 +396,12 @@ It also serves as a **community resource**, a **growing catalog of open modeling
 :::
 
 # 🦠 Real-world example: CDC FluSight Hub
+
+::: notes
+
+Now let's take a look at some this infrastrcuture in action by focusing on the CDC Flusight Hub
+
+:::
 
 ------------------------------------------------------------------------
 
@@ -421,7 +425,7 @@ It also serves as a **community resource**, a **growing catalog of open modeling
 ::: notes
 The **CDC FluSight Hub** is a flagship example of the hubverse stack in action.
 
-It’s used by the **US CDC to monitor influenza severity** through **weekly model outputs** submitted by over **40 teams**, spanning **70 different models**.
+It’s used by the **US CDC to monitor influenza severity** through **weekly model outputs**, submitted by over **40 teams**, spanning **70 different models**.
 
 The hub is **fully managed** using the hubverse software, **workflows** and **S3 cloud mirroring** since the **2023/24 season**.
 
@@ -449,13 +453,13 @@ Files are named using a **round ID** and **model ID**, e.g., `2023-10-14-CADPH-F
 
 Inside the file:
 
-\- The **Task ID columns** , like `target`, `horizon`, and `location` store information about individual predictions.
+\- The **Task ID columns**, like `target`, `horizon`, and `location` store information about individual predictions.
 
 \- The **Output Type columns** describe the prediction format (e.g., quantiles).
 
 \- And the `value` column holds the actual predicted values.
 
-This file structure is fully standardised across all hubs.
+This file structure (task ids, output type, values) is fully standardised across all hubs.
 :::
 
 ------------------------------------------------------------------------
@@ -487,7 +491,7 @@ On the right is an example validation log from GitHub Actions. Here, `hubValidat
 
     -   Is named and placed correctly,
 
-    -   And passes content-level checks:
+-   And passes content-level checks:
 
     -   valid task ID and output type value combinations,
 
@@ -565,7 +569,7 @@ Python analogue [**`hub-data`**](https://github.com/hubverse-org/hub-data) also 
 ::: notes
 We've designed the hubverse format so that, while teams look after their own submission files, model outputs can be **accessed** as a **whole** as a **queryable Arrow dataset**.
 
-Here we show **how to connect to the FluSight hub's S3 mirror using `hubData`**. No need to clone the repo, just connect directly via `s3_bucket()`.
+Here we show **how to connect to the FluSight hub's S3 mirror using `hubData`**.
 
 We can then filter and collect data using standard `dplyr` verbs.
 
@@ -600,7 +604,7 @@ hubEnsembles::simple_ensemble(forecast_df, model_id = "linear-pool-normal")
 ::: notes
 **Ensembling is central to the hub idea** as it helps improve prediction robustness by combining multiple model predictions into a single output.
 
-`hubEnsembles` provides a **simple interface** to build median or weighted ensembles from hubverse fomratted data.
+`hubEnsembles` provides a **simple interface** to build various types of ensembles from hubverse formatted data.
 
 This example shows how to pull data from a few different models and apply a simple ensemble method.
 :::
@@ -612,13 +616,13 @@ This example shows how to pull data from a few different models and apply a simp
 ![](assets/images/dashboard-forecasts.png)
 
 ::: notes
-This is the FluSight dashboard and specifically the forecast page. It is entirely static and generated from processing model outputs and target data into JSON files.
+This is the FluSight dashboard and specifically the forecast page. 
 
 It enables users to **explore predictions interactively**: you can choose **outcomes**, **forecast dates** and compare multiple models visually.
 
 Crucially, the **dashboard also shows the target (observed) data alongside forecasts**, which helps **contextualise model behaviour** and **monitor real-world performance**.
 
-**Clicking on any model name in the left-hand panel opens that model’s metadata page** , which includes details about the model, contributors, assumptions, and links to documentation or papers.
+**Clicking on any model name in the left-hand panel opens that model’s metadata page** , which includes details about the model, contributors, assumptions etc.
 :::
 
 ## 🩺 Dashboard - [model evaluations](https://reichlab.io/flusight-dashboard/eval.html)
@@ -632,7 +636,7 @@ This is the **evaluation tab** of the FluSight dashboard, which **helps users co
 
 It’s **powered by the `hubEvals` package,** which **computes evaluation scores** by **comparing model outputs** to the **target data,** also stored in the hub.
 
-The evaluation **supports proper scoring rules** such as:
+The evaluation **supports scoring rules** such as:
 
 -   **WIS** (**Weighted Interval Score**)
 
@@ -671,7 +675,7 @@ To wrap up:
 -   **Standards and automation reduce friction** at every level -**submitting**, **validating**, and **accessing** model outputs becomes much easier and more reliable.
 -   **Open-source tooling** makes all this infrastructure freely accessible, which is **especially valuable** in **fast-moving** or **resource-constrained** public health contexts.
 -   **Collaborative infrastructure** like this fosters **shared understanding** and **accountability**.
--   But beyond that, **making the data** openly available in a s**tandardised format** opens **doors to wider impact**. For example, hubverse data are already being **used in teaching**, like this SISMID course on **real-world outbreak forecast evaluation**, which builds directly on hubverse data and tools.
+-   But beyond that, **making the data** openly available in a **standardised format** opens **doors to wider impact**. For example, hubverse data are already being **used in teaching**, like this SISMID course on **real-world outbreak forecast evaluation**, which builds directly on hubverse data and tools.
 
 We hope this inspires other communities to adopt or adapt similar workflows.
 :::

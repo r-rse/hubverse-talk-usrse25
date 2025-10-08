@@ -617,7 +617,7 @@ This example shows how to pull data from a few different models and apply a simp
 
 ## 📈 Dashboard - [forecasts](https://reichlab.io/flusight-dashboard/forecast.html?as_of=2025-05-31&interval=95%25&target_var=wk+inc+flu+hosp&xaxis_range=2023-09-01&xaxis_range=2025-07-01&yaxis_range=-3787.6522689994536&yaxis_range=57169.8764352105&model=FluSight-ensemble&model=FluSight-baseline&location=US)
 
-![](assets/images/dashboard-forecasts.png)
+![](assets/images/dashboard-forecasts.png){width="85%"}
 
 ::: notes
 This is the FluSight dashboard and specifically the forecast page.
@@ -633,7 +633,7 @@ Crucially, the **dashboard also shows the target (observed) data alongside forec
 
 Evaluates forecasts against target (observed) data.
 
-![](assets/images/dashboard-eval.png){width="90%"}
+![](assets/images/dashboard-eval.png){width="80%"}
 
 ::: notes
 This is the **evaluation tab** of the FluSight dashboard, which **helps users compare model performance** using **standard metrics**.
